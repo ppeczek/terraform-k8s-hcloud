@@ -12,6 +12,7 @@ resource "hcloud_server" "master" {
   name        = "master-${count.index + 1}"
   server_type = var.master_type
   image       = var.master_image
+  datacenter  = var.master_datacenter
   ssh_keys    = [hcloud_ssh_key.k8s_admin.id]
 
   connection {
@@ -60,6 +61,7 @@ resource "hcloud_server" "node" {
   name        = "node-${count.index + 1}"
   server_type = var.node_type
   image       = var.node_image
+  datacenter  = var.node_datacenter
   depends_on  = [hcloud_server.master]
   ssh_keys    = [hcloud_ssh_key.k8s_admin.id]
 
